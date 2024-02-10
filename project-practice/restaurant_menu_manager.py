@@ -33,6 +33,10 @@ class Franchise:
                 available_menus.append(menu)
         return available_menus
 
+class Business:
+    def __init__(self, name, franchises):
+        self.name = name
+        self.franchises = franchises
 
 # Create instance Class menu
 brunch = Menu("Brunch", {
@@ -72,22 +76,26 @@ kid = Menu("Kid", {
     'apple juice': 3.00
 }, "11am", "9pm")
 
-# Test calculate_bill method
-total_purchase = brunch.calculate_bill(['pancakes']) + early_bird.calculate_bill(['salumeria plate'])
-print(total_purchase)
+# Create instance Class menu for Take a' Arepa
+arepas_menu = {
+    'arepa pabellon': 7.00,
+    'pernil arepa': 8.50,
+    'guayanes arepa': 8.00,
+    'jamon arepa': 7.50
+}
 
-# Instance for class Franchise
+# Create instance Class menu for Take a' Arepa
+arepas_place = Franchise("189 Fitzgerald Avenue", [Menu("Take a' Arepa", arepas_menu, "10am", "8pm")])
+
+# Define instances for class Franchise
 flagship_store = Franchise("1232 West End Road", [brunch, early_bird, dinner, kid])
 new_installment = Franchise("12 East Mulberry Street", [brunch, early_bird, dinner, kid])
 
+# Create instance for class Business
+take_arepa = Business("Take a' Arepa", [flagship_store, new_installment, arepas_place])
+
 # Time for testing available_menus
-#time = "12pm" 
-available_menus = flagship_store.available_menus("12pm")
+# time = "12pm" 
+available_menus = take_arepa.franchises[0].available_menus("12pm")
 for menu in available_menus:
     print(menu)
-
-#test 5pm
-fivepm = flagship_store.available_menus("5pm")
-print(fivepm)
-for menu in fivepm:
-  print(menu)
